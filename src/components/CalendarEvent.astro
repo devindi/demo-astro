@@ -1,0 +1,67 @@
+---
+interface Props {
+  event: {
+    id: string;
+    title: string;
+    start: Date;
+    end: Date;
+    color?: string;
+  };
+}
+
+const { event } = Astro.props;
+const startHour = event.start.getHours();
+const startMinutes = event.start.getMinutes();
+const duration = (event.end.getTime() - event.start.getTime()) / (1000 * 60);
+const top = startHour * 60 + startMinutes;
+const height = duration;
+---
+
+<div
+  class="event"
+  style={`
+    top: ${top}px;
+    height: ${height}px;
+    background-color: ${event.color || '#4285f4'};
+  `}
+>
+  <div class="event-content">
+    <div class="event-title">{event.title}</div>
+    <div class="event-time">
+      {event.start.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} - 
+      {event.end.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+    </div>
+  </div>
+</div>
+
+<style>
+  .event {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 2px;
+    border-radius: 4px;
+    color: white;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .event:hover {
+    opacity: 0.9;
+  }
+
+  .event-content {
+    padding: 4px;
+  }
+
+  .event-title {
+    font-weight: 500;
+    font-size: 0.9em;
+  }
+
+  .event-time {
+    font-size: 0.8em;
+    opacity: 0.9;
+  }
+</style> 

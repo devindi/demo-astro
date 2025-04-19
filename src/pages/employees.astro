@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { EmployeesApi } from '../lib/api/employeesApi';
+
+const employees = await EmployeesApi.getAllEmployees();
+---
+
+<Layout title="Сотрудники">
+  <main>
+    <h1>Список сотрудников</h1>
+    <div class="employees-grid">
+      {employees.map(employee => (
+        <div class="employee-card">
+          <h3>{employee.employee_name}</h3>
+          <div class="employee-info">
+            <p>Возраст: {employee.employee_age}</p>
+            <p>Зарплата: ${employee.employee_salary.toLocaleString()}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .employees-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .employee-card {
+    padding: 20px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .employee-card h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+  }
+
+  .employee-info {
+    color: #666;
+  }
+
+  .employee-info p {
+    margin: 5px 0;
+  }
+</style> 
