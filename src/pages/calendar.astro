@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CalendarComponent from '../components/Calendar.astro';
+
+const today = new Date();
+const testEvents = [
+  {
+    id: '1',
+    title: 'Встреча с командой',
+    start: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 10, 0),
+    end: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 11, 30),
+    color: '#4285f4'
+  },
+  {
+    id: '2',
+    title: 'Обед',
+    start: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 13, 0),
+    end: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 14, 0),
+    color: '#34a853'
+  },
+  {
+    id: '3',
+    title: 'Презентация',
+    start: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 15, 0),
+    end: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1, 16, 30),
+    color: '#ea4335'
+  }
+];
+---
+
+<Layout title="Календарь">
+  <main>
+    <h1>Календарь событий</h1>
+    <div class="calendar-container">
+      <CalendarComponent events={testEvents} />
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .calendar-container {
+    height: calc(100vh - 200px);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+</style> 
